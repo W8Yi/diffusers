@@ -1262,7 +1262,7 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
                 and sample.shape == down_intrablock_additional_residuals[0].shape
             ):
                 sample += down_intrablock_additional_residuals.pop(0)
-        print('we find mid')
+        print(f'we find mid: {sample.shape}')
         if is_controlnet:
             sample = sample + mid_block_additional_residual
 
