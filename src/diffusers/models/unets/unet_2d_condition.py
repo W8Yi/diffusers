@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import torch
 import torch.nn as nn
 import torch.utils.checkpoint
-
+from ..latent_mod import get_latent_mod
 from ...configuration_utils import ConfigMixin, register_to_config
 from ...loaders import PeftAdapterMixin, UNet2DConditionLoadersMixin
 from ...utils import USE_PEFT_BACKEND, BaseOutput, deprecate, logging, scale_lora_layers, unscale_lora_layers
@@ -1262,7 +1262,10 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
                 and sample.shape == down_intrablock_additional_residuals[0].shape
             ):
                 sample += down_intrablock_additional_residuals.pop(0)
-        print(f'we find mid: {sample.shape}')
+
+        # 4.5 latent mod
+        sample = get_latent_mod(sample)
+
         if is_controlnet:
             sample = sample + mid_block_additional_residual
 
