@@ -316,7 +316,7 @@ class UNet2DModel(ModelMixin, ConfigMixin):
 
         # 4. mid
         sample = self.mid_block(sample, emb)
-
+        print(sample.shape)
         # 5. up
         skip_sample = None
         for upsample_block in self.up_blocks:
