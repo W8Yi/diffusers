@@ -64,6 +64,7 @@ class UNet2DConditionOutput(BaseOutput):
     """
 
     sample: torch.FloatTensor = None
+    h_space: torch.FloatTensor = None
 
 
 class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin, PeftAdapterMixin):
@@ -1263,8 +1264,9 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
             ):
                 sample += down_intrablock_additional_residuals.pop(0)
 
-        # 4.5 latent mod
-        sample = get_latent_mod(sample)
+        # # 4.5 latent mod
+        # sample = get_latent_mod(sample)
+        h_space = sample
 
         if is_controlnet:
             sample = sample + mid_block_additional_residual
@@ -1312,6 +1314,6 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
             unscale_lora_layers(self, lora_scale)
 
         if not return_dict:
-            return (sample,)
+            return (sample, h_space,)
 
-        return UNet2DConditionOutput(sample=sample)
+        return UNet2DConditionOutput(sample=sample, h_space=h_space)

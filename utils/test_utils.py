@@ -1,5 +1,6 @@
-import glob, os
-
+import numpy as np
+import glob
+import os
 def find_local_idx(path, ext):
     """
     Find the local index of the last file in the directory
@@ -17,3 +18,9 @@ def find_local_idx(path, ext):
 def ensure_directory_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
+
+def save_hspace(save_location, name, h_space):
+
+    os.makedirs(save_location, exist_ok=True)
+    h_space = h_space.cpu().detach().numpy()
+    np.save(os.path.join(save_location, f'{name}.npy'), h_space)
