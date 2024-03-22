@@ -3,6 +3,6 @@ import torch
 
 def get_latent_mod(h):
     batch_size = h.shape[0]
-    print(h.shape)
+    print(h[0, :, :])
 
     return h

@@ -5,15 +5,15 @@ export PYTHONPATH = src
 
 check_dirs := examples scripts src tests utils benchmarks
 
-modified_only_fixup:
-	$(eval modified_py_files := $(shell python utils/get_modified_files.py $(check_dirs)))
-	@if test -n "$(modified_py_files)"; then \
-		echo "Checking/fixing $(modified_py_files)"; \
-		ruff check $(modified_py_files) --fix; \
-		ruff format $(modified_py_files);\
-	else \
-		echo "No library .py files were modified"; \
-	fi
+# modified_only_fixup:
+# 	$(eval modified_py_files := $(shell python utils/get_modified_files.py $(check_dirs)))
+# 	@if test -n "$(modified_py_files)"; then \
+# 		echo "Checking/fixing $(modified_py_files)"; \
+# 		ruff check $(modified_py_files) --fix; \
+# 		ruff format $(modified_py_files);\
+# 	else \
+# 		echo "No library .py files were modified"; \
+# 	fi
 
 # Update src/diffusers/dependency_versions_table.py
 

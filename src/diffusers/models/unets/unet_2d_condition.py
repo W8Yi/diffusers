@@ -1265,7 +1265,7 @@ class UNet2DConditionModel(ModelMixin, ConfigMixin, UNet2DConditionLoadersMixin,
                 sample += down_intrablock_additional_residuals.pop(0)
 
         # # 4.5 latent mod
-        # sample = get_latent_mod(sample)
+        sample = get_latent_mod(sample)
         h_space = sample
 
         if is_controlnet:
